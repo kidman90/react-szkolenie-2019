@@ -9,7 +9,7 @@ ReactDOM.render(
       'Witaj na',
       // 'Witaj na ',
       ' ',
-      React.createElement('b', null, 'Warsztatach z React'),
+      React.createElement('b', { key: 'bold' }, 'Warsztatach z React'),
       '!'
     ]
   ), document.getElementById('root'));
