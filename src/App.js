@@ -3,7 +3,7 @@ import { Message } from './Message';
 
 export const App = () =>
   <Message
-    userName="Maciek"
+    // userName="Maciek"
     time={Date.now()}
     message="To jest przykładowa wiadomość :)"
   />;
