@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const Message = (props) => {
   const { userName, time, message } = props;
@@ -10,4 +11,14 @@ export const Message = (props) => {
       <p>{message}</p>
     </div>
   );
+};
+
+Message.propTypes = {
+  userName: PropTypes.string,
+  time: PropTypes.number,
+  message: PropTypes.string
+};
+
+Message.defaultProps = {
+  userName: 'Anonim'
 };
