@@ -1,20 +1,29 @@
 import React, { Component } from 'react';
 
 export class MessageForm extends Component {
-  textInput = React.createRef();
-
-  inputHandler = e => console.log(e.target.value);
+  state = {
+    value: ''
+  };
 
   submitHandler = e => {
     e.preventDefault();
-    alert(this.textInput.current.value);
-    this.textInput.current.value = '';
+
+    if (!this.state.value) {
+      return;
+    }
+
+    alert(this.state.value);
+    this.setState({ value: '' });
   };
 
   render() {
     return (
       <form onSubmit={this.submitHandler}>
-        <input type="text" ref={this.textInput} onChange={this.inputHandler} />
+        <input
+          type="text"
+          value={this.state.value}
+          onChange={e => this.setState({ value: e.target.value })}
+        />
       </form>
     );
   }
