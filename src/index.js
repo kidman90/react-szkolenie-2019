@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+export const App = () => (
+  <p>
+    Witaj na <b>Warsztatach React</b>!
+  </p>
+);
+
 ReactDOM.render(
-  React.createElement(
-    'div',
-    null,
-    [
-      'Witaj na',
-      // 'Witaj na ',
-      ' ',
-      React.createElement('b', { key: 'bold' }, 'Warsztatach z React'),
-      '!'
-    ]
-  ), document.getElementById('root'));
+  <App />
+  , document.getElementById('root')
+);
