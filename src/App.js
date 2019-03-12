@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { Message } from './Message';
 import { MessageForm } from './MessageForm';
 
-export const App = (props) => {
+export const App = props => {
   const { data } = props;
 
   return (
     <React.Fragment>
-      {data.map(elem => <Message key={elem.userName} {...elem} />)}
-      <MessageForm />
+      {data.map((elem, index) => <Message key={index} {...elem} />)}
+      <MessageForm onMessage={message => alert(message)} />
     </React.Fragment>
   );
 };

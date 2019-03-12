@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export class MessageForm extends Component {
   state = {
@@ -12,7 +13,7 @@ export class MessageForm extends Component {
       return;
     }
 
-    alert(this.state.value);
+    this.props.onMessage && this.props.onMessage(this.state.value);
     this.setState({ value: '' });
   };
 
@@ -27,4 +28,8 @@ export class MessageForm extends Component {
       </form>
     );
   }
+};
+
+MessageForm.propTypes = {
+  onMessage: PropTypes.func
 };
