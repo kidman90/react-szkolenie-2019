@@ -1,15 +1,13 @@
 import React from 'react';
 
-export const Message = () => {
-  const name = 'Maciek';
+export const Message = (props) => {
+  const { userName, time, message } = props;
 
   return (
     <div>
-      <span>{name}</span>
-      <time>{new Date().getHours()}:{new Date().getMinutes()}</time>
-      <p>
-        To jest przykładowa wiadomość :)
-      </p>
+      <span>{userName}</span>
+      <time>{new Date(time).getHours()}:{new Date(time).getMinutes()}</time>
+      <p>{message}</p>
     </div>
   );
 };
