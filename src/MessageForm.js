@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export const MessageForm = () => {
-  const textInput = React.createRef();
+export class MessageForm extends Component {
+  textInput = React.createRef();
 
-  const inputHandler = e => console.log(e.target.value);
+  inputHandler = e => console.log(e.target.value);
 
-  const submitHandler = e => {
+  submitHandler = e => {
     e.preventDefault();
-    alert(textInput.current.value);
-    textInput.current.value = '';
+    alert(this.textInput.current.value);
+    this.textInput.current.value = '';
   };
 
-  return (
-    <form onSubmit={submitHandler}>
-      <input type="text" ref={textInput} onChange={inputHandler} />
-    </form>
-  );
+  render() {
+    return (
+      <form onSubmit={this.submitHandler}>
+        <input type="text" ref={this.textInput} onChange={this.inputHandler} />
+      </form>
+    );
+  }
 };
