@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Message } from './Message';
+import { MessageForm } from './MessageForm';
 
 export const App = (props) => {
   const { data } = props;
 
-  return data.map(elem => <Message key={elem.userName} {...elem} />);
+  return (
+    <React.Fragment>
+      {data.map(elem => <Message key={elem.userName} {...elem} />)}
+      <MessageForm />
+    </React.Fragment>
+  );
 };
 
 App.propTypes = {
