@@ -1,7 +1,9 @@
 import React from 'react';
+import { Message } from './Message';
 
 export const App = () => (
-  <p>
-    Witaj na <b>Warsztatach React</b>!
-  </p>
+  <React.Fragment>
+    <Message />
+    <Message />
+  </React.Fragment>
 );
