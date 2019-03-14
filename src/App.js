@@ -1,7 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { Message } from './Message';
 import { MessageForm } from './MessageForm';
+
+const Layout = styled.div`
+  height: 97vh;
+  display: flex;
+  flex-direction: column;
+  font-family: Arial;
+  font-size: 14px;
+  line-height: 1.4;
+  * {
+    box-sizing: border-box;
+  }
+`;
+
+const MessageList = styled.div`
+  flex: 1;
+`;
 
 export class App extends Component {
   state = {
@@ -18,20 +35,26 @@ export class App extends Component {
 
   render() {
     if (!this.state.data || !this.state.data.constructor === Array) {
-      return 'Trwa pobieranie danych';
+      return (
+        <Layout>
+          <p>Trwa pobieranie danych</p>
+        </Layout>
+      );
     }
 
     return (
-      <React.Fragment>
+      <Layout>
         {!this.state.data.length
           ? (
             <p>Brak danych</p>
           ) : (
-            this.state.data.map((elem, index) => <Message key={index} {...elem} />)
+            <MessageList>
+              {this.state.data.map((elem, index) => <Message key={index} {...elem} />)}
+            </MessageList>
           )
         }
         <MessageForm onMessage={this.onMessage} />
-      </React.Fragment>
+      </Layout>
     );
   }
 };

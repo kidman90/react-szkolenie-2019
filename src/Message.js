@@ -1,12 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  border-bottom: 1px solid #d3d3d3;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  p {
+    margin: 0;
+    padding: 0;
+  }
+`;
+
+const Author = styled.span`
+  font-weight: bold;
+  margin-right: 5px;
+`;
 
 export const Message = ({ userName, time, message }) => (
-  <div>
-    <span>{userName}</span>
+  <Container>
+    <Author>{userName}</Author>
     <time>{new Date(time).getHours()}:{new Date(time).getMinutes()}</time>
     <p>{message}</p>
-  </div>
+  </Container>
 );
 
 Message.propTypes = {
