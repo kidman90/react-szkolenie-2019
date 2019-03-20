@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Message } from './Message';
+import { Message, Bubble } from './Message';
 import Chat from './screens/Chat';
 import { Login } from './screens/Login';
 
@@ -19,14 +19,38 @@ const Layout = styled.div`
 
 export class App extends Component {
   state = {
-    login: undefined
+    login: undefined,
+    messageComponent: Message
   };
 
   render() {
     return (
       <Layout>
         {this.state.login ? (
-          <Chat login={this.state.login} />
+          <Fragment>
+            <Chat
+              login={this.state.login}
+              renderMessage={this.state.messageComponent}
+            />
+            <button
+              onClick={() =>
+                this.setState({
+                  messageComponent: Message
+                })
+              }
+            >
+              Wyświetl jako lista
+            </button>
+            <button
+              onClick={() =>
+                this.setState({
+                  messageComponent: Bubble
+                })
+              }
+            >
+              Wyświetl jako bąbelki
+            </button>
+          </Fragment>
         ) : (
             <Login
               onNameChange={name =>

@@ -49,6 +49,7 @@ export const withChat = Chat => (
           data={this.state.data}
           isLoading={this.state.data === undefined}
           create={this.onMessage}
+          {...this.props}
         />
       );
     }

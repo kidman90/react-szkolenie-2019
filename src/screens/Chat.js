@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { Message } from '../Message';
 import { MessageForm } from '../MessageForm';
 import { withChat } from '../providers/chat';
 
@@ -20,10 +19,10 @@ const Chat = props => {
       <MessageList>
         {props.data.length !== 0 ? (
           props.data.map((item, index) => (
-            <Message
-              key={index}
-              {...item}
-            />
+            props.renderMessage({
+              key: index,
+              ...item
+            })
           ))
         ) : (
             <p>Brak danych</p>
