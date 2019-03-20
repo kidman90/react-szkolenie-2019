@@ -10,6 +10,12 @@ const Form = styled.form`
     padding: 8px;
     font-size: 1rem;
   }
+  input[type="submit"] {
+    padding: 8px;
+    font-size: 1rem;
+    /** Chrome OSX */
+    -webkit-appearance: initial;
+  }
 `;
 
 export class MessageForm extends Component {
@@ -19,10 +25,6 @@ export class MessageForm extends Component {
 
   submitHandler = e => {
     e.preventDefault();
-
-    if (!this.state.value) {
-      return;
-    }
 
     this.props.onMessage && this.props.onMessage(this.state.value);
     this.setState({ value: '' });
@@ -36,6 +38,7 @@ export class MessageForm extends Component {
           value={this.state.value}
           onChange={e => this.setState({ value: e.target.value })}
         />
+        {this.props.button && <input type="submit" value={this.props.button} />}
       </Form>
     );
   }
