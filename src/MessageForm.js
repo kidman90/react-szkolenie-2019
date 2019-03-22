@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -18,30 +18,26 @@ const Form = styled.form`
   }
 `;
 
-export class MessageForm extends Component {
-  state = {
-    value: ''
-  };
+export const MessageForm = ({ onMessage = () => {}, button }) => {
+  const [value, setValue] = useState('');
 
-  submitHandler = e => {
+  const submitHandler = e => {
     e.preventDefault();
 
-    this.props.onMessage && this.props.onMessage(this.state.value);
-    this.setState({ value: '' });
+    onMessage && onMessage(value);
+    setValue('');
   };
 
-  render() {
-    return (
-      <Form onSubmit={this.submitHandler}>
-        <input
-          type="text"
-          value={this.state.value}
-          onChange={e => this.setState({ value: e.target.value })}
-        />
-        {this.props.button && <input type="submit" value={this.props.button} />}
-      </Form>
-    );
-  }
+  return (
+    <Form onSubmit={submitHandler}>
+      <input
+        type="text"
+        value={value}
+        onChange={e => setValue(e.target.value)}
+      />
+      {button && <input type="submit" value={button} />}
+    </Form>
+  );
 };
 
 MessageForm.propTypes = {

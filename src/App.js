@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Message, Bubble } from './Message';
@@ -17,53 +17,28 @@ const Layout = styled.div`
   }
 `;
 
-export class App extends Component {
-  state = {
-    login: undefined,
-    messageComponent: Message
-  };
+export const App = () => {
+  const [login, setLogin] = useState(undefined);
+  const [messageComponent, setMessageComponent] = useState(() => Message);
 
-  render() {
-    return (
-      <Layout>
-        {this.state.login ? (
-          <Fragment>
-            <Chat
-              login={this.state.login}
-              renderMessage={this.state.messageComponent}
-            />
-            <button
-              onClick={() =>
-                this.setState({
-                  messageComponent: Message
-                })
-              }
-            >
-              Wyświetl jako lista
+  return (
+    <Layout>
+      {login ? (
+        <Fragment>
+          <Chat login={login} renderMessage={messageComponent} />
+          <button onClick={() => setMessageComponent(() => Message)}>
+            Wyświetl jako lista
+          </button>
+          <button onClick={() => setMessageComponent(() => Bubble)}>
+            Wyświetl jako bąbelki
             </button>
-            <button
-              onClick={() =>
-                this.setState({
-                  messageComponent: Bubble
-                })
-              }
-            >
-              Wyświetl jako bąbelki
-            </button>
-          </Fragment>
-        ) : (
-            <Login
-              onNameChange={name =>
-                this.setState({
-                  login: name
-                })
-              }
-            />
-          )}
-      </Layout>
-    );
-  }
-}
+        </Fragment>
+      ) : (
+          <Login onNameChange={setLogin} />
+        )}
+    </Layout>
+  );
+};
 
 App.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape(Message.propTypes))
