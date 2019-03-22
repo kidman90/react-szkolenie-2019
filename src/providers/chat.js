@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 
 import { api } from "../api";
 
@@ -8,46 +8,34 @@ const messageFormatter = ({ text, date, user }) => ({
   userName: user.userName
 });
 
-export class ChatProvider extends Component {
-  state = {
-    data: undefined
+export const ChatProvider = ({ children }) => {
+  const [data, setData] = useState(undefined);
+
+  const poll = () => {
+    api.get().then(data => setData(data.items.map(messageFormatter)));
   };
 
-  componentDidMount() {
-    this.interval = setInterval(this.poll, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
-  poll = () => {
-    api.get().then(data =>
-      this.setState({
-        data: data.items.map(messageFormatter)
-      })
-    );
-  };
-
-  onMessage = (login, message) => {
+  const create = (login, message) => {
     api.create(login, message);
-    this.setState(prevState => ({
-      data: [
+    setData(prevData =>
+      [
         {
           userName: login,
           message,
           time: Date.now()
         }
-      ].concat(prevState.data)
-    }));
+      ].concat(prevData)
+    );
   };
 
-  render() {
-    return this.props.children({
-      data: this.state.data,
-      isLoading: this.state.data === undefined,
-      create: this.onMessage
-    });
-  }
-}
+  useEffect(() => {
+    const interval = setInterval(poll, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
+  return children({
+    data,
+    isLoading: data === undefined,
+    create
+  });
+};
