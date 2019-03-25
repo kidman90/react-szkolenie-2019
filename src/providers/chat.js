@@ -8,7 +8,7 @@ const messageFormatter = ({ text, date, user }) => ({
   userName: user.userName
 });
 
-export const ChatProvider = ({ children }) => {
+export const useChat = () => {
   const [data, setData] = useState(undefined);
 
   const poll = () => {
@@ -33,9 +33,9 @@ export const ChatProvider = ({ children }) => {
     return () => clearInterval(interval);
   }, []);
 
-  return children({
+  return {
     data,
     isLoading: data === undefined,
     create
-  });
+  };
 };
