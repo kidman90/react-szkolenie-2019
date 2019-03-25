@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
 import { MessageForm } from '../MessageForm';
+import { T } from '../providers/translation';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -20,7 +20,7 @@ export const Login = ({ onNameChange }) => {
   return (
     <Container>
       <MessageForm
-        button="Zaloguj"
+        button={<T as="button" label="Zaloguj" />}
         onMessage={name => {
           if (!name.trim()) {
             setError(true);
@@ -29,7 +29,7 @@ export const Login = ({ onNameChange }) => {
           }
         }}
       />
-      {error && <p>Podaj imię</p>}
+      {error && <T as="p" label="Podaj imię" />}
     </Container>
   );
 };

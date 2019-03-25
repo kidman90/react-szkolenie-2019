@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { MessageForm } from '../MessageForm';
 import { useChat } from '../providers/chat';
+import { T } from '../providers/translation';
 
 const MessageList = styled.div`
   flex: 1;
@@ -13,11 +14,10 @@ export const Chat = props => {
 
   return (
     <Fragment>
-      <h1>Witaj na chacie! {Math.random()}</h1>
+      <h1><T as="span" label="Witaj na chacie!" /> {Math.random()}</h1>
       {isLoading
-        ? (
-          <p>Trwa pobieranie danych</p>
-        ) : (
+        ? <T as="p" label="Trwa pobieranie danych" />
+        : (
           <Fragment>
             <MessageList>
               {data.length !== 0 ? (
@@ -27,9 +27,7 @@ export const Chat = props => {
                     ...item
                   })
                 ))
-              ) : (
-                  <p>Brak danych</p>
-                )}
+              ) : <T as="p" label="Brak danych" />}
             </MessageList>
             <MessageForm onMessage={message => create(props.login, message)} />
           </Fragment>

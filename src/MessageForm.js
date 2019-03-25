@@ -18,7 +18,7 @@ const Form = styled.form`
   }
 `;
 
-export const MessageForm = ({ onMessage = () => {}, button }) => {
+export const MessageForm = ({ onMessage = () => { }, button }) => {
   const [value, setValue] = useState('');
 
   const submitHandler = e => {
@@ -35,7 +35,7 @@ export const MessageForm = ({ onMessage = () => {}, button }) => {
         value={value}
         onChange={e => setValue(e.target.value)}
       />
-      {button && <input type="submit" value={button} />}
+      {button}
     </Form>
   );
 };
