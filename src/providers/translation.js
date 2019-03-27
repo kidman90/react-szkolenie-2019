@@ -27,26 +27,27 @@ export const TranslationProvider = ({ lang = 'pl', children }) => {
   );
 };
 
-export const LanguageSwitch = ({ to, children }) => (
-  <Translation.Consumer>
-    {context =>
-      <button
-        onClick={() => context.setLanguage(to)}
-        style={{ borderStyle: context.language === to ? 'inset' : 'outset' }}
-      >
-        {children}
-      </button>}
-  </Translation.Consumer>
-);
+export const LanguageSwitch = ({ to, children }) => {
+  const { language, setLanguage } = useContext(Translation);
 
-export const T = ({ as, label, ...props }) => (
-  <Translation.Consumer>
-    {context => React.createElement(
-      as,
-      props,
-      context.labels[label] && context.labels[label][context.language]
-        ? context.labels[label][context.language]
-        : label
-    )}
-  </Translation.Consumer>
-); 
+  return (
+    <button
+      onClick={() => setLanguage(to)}
+      style={{ borderStyle: language === to ? 'inset' : 'outset' }}
+    >
+      {children}
+    </button>
+  );
+};
+
+export const T = ({ as, label, ...props }) => {
+  const { labels, language } = useContext(Translation);
+
+  return React.createElement(
+    as,
+    props,
+    labels[label] && labels[label][language]
+      ? labels[label][language]
+      : label
+  );
+}; 
